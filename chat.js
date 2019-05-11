@@ -20,7 +20,7 @@ let generalNsp = io.of('/general');
 io.on('connection', function (socket) {
   console.log('New client connected %s', socket.id);
 
-  socket.on('register', (data) => {
+  /*socket.on('register', (data) => {
     db.users.findOne({name: data.username}, (err, user) => {
       if (err) throw err;
       if (user) {
@@ -51,11 +51,16 @@ io.on('connection', function (socket) {
       }
       return false;
     });
+  });*/
+  /**
+   * This few lines prints out the received image.
+  */
+  socket.on('image', (data) => {
+    console.log(data)
+    // You can 
+    // socket.broadcast.emit('new-image', data);
   });
 
-  socket.on('image', (data) => {
-    socket.broadcast.emit('new-image', data);
-  });
   socket.on('disconnect', () => {
     let offlineUser = activeUsers.find(u => u._id == socket.id);
     if (offlineUser) {

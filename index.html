@@ -61,7 +61,7 @@
 </head>
 <body>
   <div id="app">
-    <el-container style="height: 100vh; border: 1px solid #eee">
+    <!--<el-container style="height: 100vh; border: 1px solid #eee">
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
         hello
       </el-aside>
@@ -93,8 +93,8 @@
           <el-button type="info" slot="append" icon="el-icon-search"></el-button>
         </el-input>
       </el-container>
-    </el-container>
-    <el-dialog :show-close="false" :close-on-click-modal="false" :close-on-press-escape="false"
+    </el-container>-->
+    <!--<el-dialog :show-close="false" :close-on-click-modal="false" :close-on-press-escape="false"
     title="Warning"
     :visible.sync="loginDialog"
     center custom-class="intro-dialog">
@@ -131,8 +131,8 @@
     </el-row>
     <span slot="footer" class="dialog-footer">
     </span>
-  </el-dialog>
-  <!--<div class="container">
+  </el-dialog>-->
+  <div class="container">
   <div class="row">
   <div class="col-4">
   <img alt="Stranger image" id="otherImage">
@@ -151,149 +151,153 @@
 <img id="image" style="background-color: cyan;">
 </div>
 </div>
-</div>-->
+</div>
 </div>
 <script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/vue.js"></script>
-<script type="text/javascript" src="js/element-ui.js"></script>
+<!-- <script type="text/javascript" src="js/vue.js"></script> -->
+<!-- <script type="text/javascript" src="js/element-ui.js"></script> -->
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/socket.io.js"></script>
 <script type="text/javascript">
-Vue.config.devtools = true;
-let app = new Vue({
-  el: '#app',
-  data () {
-    const item = {
-      date: '2016-05-02',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles'
-    };
-    return {
-      auth: {
-        loading: false,
-        login: {
-          username: '',
-          password: ''
-        },
-        register: {
-          name: '',
-          username: '',
-          password: ''
-        }
-      },
-      validation: {
-        username: [
-          { required: true, message: 'Please enter your username', trigger: ['change', 'blur'] },
-          { min: 3, message: 'Please enter your username', trigger: ['change', 'blur'] },
-        ],
-        name: [
-          { required: true, message: 'Please enter your name', trigger: ['change', 'blur'] },
-          { min: 3, message: 'Please enter your name', trigger: ['change', 'blur'] },
-        ],
-        password: [
-          { required: true, message: 'Please enter your password', trigger: ['change', 'blur'] },
-          { min: 3, message: 'Please enter your password', trigger: ['change', 'blur'] },
-        ]
-      },
-      text: '',
-      loginDialog: true,
-      socket: io('localhost:5000'),
-      tableData: Array(10).fill(item)
-    }
-  },
-  methods: {
-    register() {
-      this.$refs.registerForm.validate(valid => {
-        if (valid) {
-          this.socket.emit('register', this.auth.register);
-        }
-      });
-    },
-    login() {
-      this.$refs.loginForm.validate(valid => {
-        if (valid) {
-          this.socket.emit('login', this.auth.login);
-        }
-      });
-    }
-  },
-  mounted () {
-    this.socket.on('new-user', function (data) {
-      this.$notify({message: data.message, type: 'success'});
-    });
-    this.socket.on('login-success', (data) => {
-      if (data.type == 'success') {
-        this.$notify({
-          message: data,
-          type: 'success'
-        });
-      } else {
-        this.$notify({
-          message: data.message,
-          type: 'error'
-        });
-      }
-      return false;
-    });
-    this.socket.on('login-error', (data) => {
-      if (data.type == 'error') {
-        this.$notify({
-          message: data.message,
-          type: 'error'
-        });
-      } else {
-        this.$notify({
-          message: data.message,
-          type: 'error'
-        });
-      }
-      return false;
-    });
-    this.socket.on('registered', (data) => {
-      this.$notify({
-        message: data.message,
-        type: 'success'
-      });
-      this.$refs.loginPassword.focus();
-      this.$refs.registerForm.resetFields();
-      this.auth.login.username = data.user.username;
-      this.auth.login.password = data.user.password;
-    });
-    this.socket.on('new-registration', (data) => {
-      this.$notify({
-        title: data.type,
-        message: data.message || 'This is a success message',
-        type: 'success'
-      });
-    });
-    this.socket.on('user-exists', (data) => {
-      this.$notify({
-        title: data.type,
-        message: data.message || 'This is a warning message',
-        type: 'warning'
-      });
-    });
-    setTimeout(()=>{
-      $(this.$refs.loginForm.fields[0].$el).focus();
-    }, 1000)
+// Vue.config.devtools = true;
+// let app = new Vue({
+//   el: '#app',
+//   data () {
+//     const item = {
+//       date: '2016-05-02',
+//       name: 'Tom',
+//       address: 'No. 189, Grove St, Los Angeles'
+//     };
+//     return {
+//       auth: {
+//         loading: false,
+//         login: {
+//           username: '',
+//           password: ''
+//         },
+//         register: {
+//           name: '',
+//           username: '',
+//           password: ''
+//         }
+//       },
+//       validation: {
+//         username: [
+//           { required: true, message: 'Please enter your username', trigger: ['change', 'blur'] },
+//           { min: 3, message: 'Please enter your username', trigger: ['change', 'blur'] },
+//         ],
+//         name: [
+//           { required: true, message: 'Please enter your name', trigger: ['change', 'blur'] },
+//           { min: 3, message: 'Please enter your name', trigger: ['change', 'blur'] },
+//         ],
+//         password: [
+//           { required: true, message: 'Please enter your password', trigger: ['change', 'blur'] },
+//           { min: 3, message: 'Please enter your password', trigger: ['change', 'blur'] },
+//         ]
+//       },
+//       text: '',
+//       loginDialog: true,
+//       socket: io('localhost:5000'),
+//       tableData: Array(10).fill(item)
+//     }
+//   },
+//   methods: {
+//     register() {
+//       this.$refs.registerForm.validate(valid => {
+//         if (valid) {
+//           this.socket.emit('register', this.auth.register);
+//         }
+//       });
+//     },
+//     login() {
+//       this.$refs.loginForm.validate(valid => {
+//         if (valid) {
+//           this.socket.emit('login', this.auth.login);
+//         }
+//       });
+//     }
+//   },
+//   mounted () {
+//     this.socket.on('new-user', function (data) {
+//       this.$notify({message: data.message, type: 'success'});
+//     });
+//     this.socket.on('login-success', (data) => {
+//       if (data.type == 'success') {
+//         this.$notify({
+//           message: data,
+//           type: 'success'
+//         });
+//       } else {
+//         this.$notify({
+//           message: data.message,
+//           type: 'error'
+//         });
+//       }
+//       return false;
+//     });
+//     this.socket.on('login-error', (data) => {
+//       if (data.type == 'error') {
+//         this.$notify({
+//           message: data.message,
+//           type: 'error'
+//         });
+//       } else {
+//         this.$notify({
+//           message: data.message,
+//           type: 'error'
+//         });
+//       }
+//       return false;
+//     });
+//     this.socket.on('registered', (data) => {
+//       this.$notify({
+//         message: data.message,
+//         type: 'success'
+//       });
+//       this.$refs.loginPassword.focus();
+//       this.$refs.registerForm.resetFields();
+//       this.auth.login.username = data.user.username;
+//       this.auth.login.password = data.user.password;
+//     });
+//     this.socket.on('new-registration', (data) => {
+//       this.$notify({
+//         title: data.type,
+//         message: data.message || 'This is a success message',
+//         type: 'success'
+//       });
+//     });
+//     this.socket.on('user-exists', (data) => {
+//       this.$notify({
+//         title: data.type,
+//         message: data.message || 'This is a warning message',
+//         type: 'warning'
+//       });
+//     });
+//     setTimeout(()=>{
+//       $(this.$refs.loginForm.fields[0].$el).focus();
+//     }, 1000)
 
-    console.log('application mounted!');
-  }
-});
-// const socket = io('localhost:5000');
-// const btnSnap = $('#control .btn-snap');
-// const btnSave = $('#control .btn-save');
-// const image = $('#image');
-// const otherImage = $('#otherImage');
-// const video = document.querySelector('#videoElement');
-// const canvas = document.createElement('canvas');
+//     console.log('application mounted!');
+//   }
+// });
+const socket = io('localhost:5000');
+const btnSnap = $('#control .btn-snap');
+const btnSave = $('#control .btn-save');
+const image = $('#image');
+const otherImage = $('#otherImage');
+const video = document.querySelector('#videoElement');
+const canvas = document.createElement('canvas');
 
-/*
+/* This 7 lines below gets an image and pushes it to express (line 299) 
+ * as png when i click the snap button.
+ * Express then logs it to the console as png (check chat.js)
+*/
 $(btnSnap).click((evt) => {
-canvas.height = video.videoHeight;
-canvas.width = video.videoWidth;
-canvas.getContext('2d').drawImage(video, 0, 0);
-$(image).attr('src', canvas.toDataURL('image/png'));
+  canvas.height = video.videoHeight;
+  canvas.width = video.videoWidth;
+  canvas.getContext('2d').drawImage(video, 0, 0);
+  socket.emit('image', canvas.toDataURL('image/png'))
+  $(image).attr('src', canvas.toDataURL('image/png'));
 });
 
 if (navigator.mediaDevices.getUserMedia) {
@@ -305,7 +309,7 @@ video.srcObject = stream;
 .catch(function (err) {
 console.log(err);
 });
-} */
+}
 </script>
 </body>
 </html>
